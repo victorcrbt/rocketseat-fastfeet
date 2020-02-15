@@ -29,6 +29,7 @@ module.exports = {
         ts: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': 'off',
     'prettier/prettier': 'error',
     'arrow-parens': 'off',
     '@typescript-eslint/no-var-requires': 'off',
