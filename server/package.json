@@ -5,5 +5,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "node src/index"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "sucrase": "^3.12.1",
+    "typescript": "^3.7.5"
   }
 }
