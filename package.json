@@ -7,6 +7,9 @@
   "author": "Victor Batalha",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "concurrently \"cd server && yarn dev\" \"cd client && yarn start\" \"cd mobile && yarn start\""
+  },
   "dependencies": {
     "concurrently": "^5.1.0"
   }
