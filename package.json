@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "install": "concurrently \"cd server && yarn\" \"cd client && yarn\" \"cd mobile && yarn\"",
     "start": "concurrently \"cd server && yarn dev\" \"cd client && yarn start\" \"cd mobile && yarn start\""
   },
   "dependencies": {
