@@ -4,7 +4,8 @@
   "main": "server.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "node src/index"
+    "dev": "nodemon src/server",
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports"
   },
   "devDependencies": {
     "nodemon": "^2.0.2",
