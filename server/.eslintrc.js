@@ -10,18 +10,26 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'airbnb',
+    'airbnb-base',
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'import'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
   rules: {
+    'import/extensions': [
+      'error',
+      'never',
+      {
+        ts: 'never',
+      },
+    ],
+    'import/no-extraneous-dependencies': 'off',
     'prettier/prettier': 'error',
     'arrow-parens': 'off',
     '@typescript-eslint/no-var-requires': 'off',
@@ -35,12 +43,25 @@ module.exports = {
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'import/no-cycle': 'off',
+    strict: 'off',
+    indent: 'off',
+    'implicit-arrow-linebreak': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
+  overrides: [
+    {
+      files: ['*.ts'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': ['error'],
+      },
+    },
+  ],
   settings: {
+    'import/extensions': ['.ts', '.js'],
     'import/resolver': {
       node: {
-        paths: ['./src'],
-        extensions: ['.ts'],
+        paths: ['node_modules', './src'],
+        extensions: ['.ts', '.d.ts'],
       },
     },
   },
