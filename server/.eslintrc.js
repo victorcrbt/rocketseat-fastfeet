@@ -10,18 +10,25 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'airbnb',
+    'airbnb-base',
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'import'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
   rules: {
+    'import/extensions': [
+      'error',
+      'never',
+      {
+        ts: 'never',
+      },
+    ],
     'prettier/prettier': 'error',
     'arrow-parens': 'off',
     '@typescript-eslint/no-var-requires': 'off',
@@ -37,10 +44,11 @@ module.exports = {
     'import/no-cycle': 'off',
   },
   settings: {
+    'import/extensions': ['.ts', '.js'],
     'import/resolver': {
       node: {
-        paths: ['./src'],
-        extensions: ['.ts'],
+        paths: ['node_modules', './src'],
+        extensions: ['.ts', '.d.ts'],
       },
     },
   },
