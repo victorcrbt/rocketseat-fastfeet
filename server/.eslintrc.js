@@ -43,7 +43,19 @@ module.exports = {
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'import/no-cycle': 'off',
+    strict: 'off',
+    indent: 'off',
+    'implicit-arrow-linebreak': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
+  overrides: [
+    {
+      files: ['*.ts'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': ['error'],
+      },
+    },
+  ],
   settings: {
     'import/extensions': ['.ts', '.js'],
     'import/resolver': {
