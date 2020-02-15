@@ -21,7 +21,21 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  rules: {},
+  rules: {
+    'prettier/prettier': 'error',
+    'arrow-parens': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.test.ts'] },
+    ],
+    'class-methods-use-this': 'off',
+    'lines-between-class-members': 'off',
+    camelcase: 'off',
+    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'import/no-cycle': 'off',
+  },
   settings: {
     'import/resolver': {
       node: {
