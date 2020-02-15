@@ -1,0 +1,10 @@
+{
+  "name": "fastfeet",
+  "version": "1.0.0",
+  "description": "Desafio de certificação da Rocketseat",
+  "main": "index.js",
+  "repository": "https://github.com/victorcrbt/rocketseat-fastfeet",
+  "author": "Victor Batalha",
+  "license": "MIT",
+  "private": true
+}
