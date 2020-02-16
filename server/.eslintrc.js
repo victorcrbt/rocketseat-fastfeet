@@ -47,6 +47,8 @@ module.exports = {
     indent: 'off',
     'implicit-arrow-linebreak': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    'comma-dangle': 'off',
+    'max-classes-per-file': 'off',
   },
   overrides: [
     {
