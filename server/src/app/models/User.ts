@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 
 class User extends Model {
   public readonly id: number;
+  public name: string;
   public email: string;
   public password: string;
   public password_hash: string;
@@ -14,6 +15,7 @@ class User extends Model {
     super.init(
       {
         email: Sequelize.INTEGER,
+        name: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.INTEGER,
       },
