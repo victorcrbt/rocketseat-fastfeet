@@ -49,6 +49,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     'comma-dangle': 'off',
     'max-classes-per-file': 'off',
+    'no-param-reassign': 'off',
   },
   overrides: [
     {
