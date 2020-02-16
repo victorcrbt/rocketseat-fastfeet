@@ -28,6 +28,10 @@ class User extends Model {
 
     return this;
   }
+
+  public checkPassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password_hash);
+  }
 }
 
 export default User;
