@@ -64,13 +64,7 @@ export default async (
     recipient: yup
       .string()
       .required('ID do destinatário não informado.')
-      .test('exists', 'Destinatário não encontrado.', async id => {
-        const recipientExists = await Recipient.findByPk(id);
-
-        if (recipientExists) return true;
-
-        return false;
-      }),
+      .existsWithID(Recipient, 'Destinatário não encontrado.'),
   });
 
   const fields = {
