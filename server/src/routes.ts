@@ -8,6 +8,7 @@ import RecipientController from './app/controllers/RecipientsController';
 
 import userStoreValidation from './app/validators/userStore';
 import sessionStoreValidation from './app/validators/sessionStore';
+import recipientStoreValidation from './app/validators/recipientStore';
 
 const routes = Router();
 
@@ -16,6 +17,6 @@ routes.post('/sessions', sessionStoreValidation, SessionController.store);
 routes.use(authMiddleware);
 routes.post('/users', userStoreValidation, UserController.store);
 
-routes.post('/recipients', RecipientController.store);
+routes.post('/recipients', recipientStoreValidation, RecipientController.store);
 
 export default routes;
