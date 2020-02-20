@@ -7,6 +7,7 @@ interface Schema {
   name: string;
   email: string;
   password: string;
+  password_confirmation: string;
 }
 
 export default async (
@@ -30,6 +31,15 @@ export default async (
       .string()
       .required('O campo senha é obrigatório.')
       .min(6, 'A senha deve conter ao menos 6 caractéres.'),
+    password_confirmation: yup.string().when(
+      'password',
+      (password, field) =>
+        // eslint-disable-next-line operator-linebreak
+        password &&
+        field
+          .required('A confirmação de senha é obrigatória.')
+          .oneOf([yup.ref('password')], 'As senhas não coincidem.')
+    ),
   });
 
   try {
