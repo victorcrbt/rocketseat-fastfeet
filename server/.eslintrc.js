@@ -50,6 +50,7 @@ module.exports = {
     'comma-dangle': 'off',
     'max-classes-per-file': 'off',
     'no-param-reassign': 'off',
+    'import/prefer-default-export': 'off',
   },
   overrides: [
     {
