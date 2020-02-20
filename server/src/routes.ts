@@ -5,11 +5,13 @@ import authMiddleware from './app/middlewares/auth';
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 
+import userStoreValidation from './app/validators/userStore';
+
 const routes = Router();
 
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
-routes.post('/users', UserController.store);
+routes.post('/users', userStoreValidation, UserController.store);
 
 export default routes;
