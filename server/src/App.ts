@@ -5,6 +5,7 @@ import cors from 'cors';
 import './database';
 
 import routes from './routes';
+import customYupMethods from './utils/yupMethods';
 
 class App {
   public server: Application;
@@ -14,6 +15,7 @@ class App {
 
     this.middlewares();
     this.routes();
+    customYupMethods();
   }
 
   private middlewares(): void {
