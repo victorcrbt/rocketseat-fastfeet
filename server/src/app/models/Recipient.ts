@@ -27,6 +27,21 @@ class Recipient extends Model {
       { sequelize }
     );
 
+    // Sanitization
+    this.addHook('beforeSave', (recipient: Recipient) => {
+      recipient.address = recipient.address
+        .toLowerCase()
+        .split(' ')
+        .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ');
+      recipient.city = recipient.city
+        .toLowerCase()
+        .split(' ')
+        .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ');
+      recipient.state = recipient.state.toUpperCase();
+    });
+
     return this;
   }
 }
