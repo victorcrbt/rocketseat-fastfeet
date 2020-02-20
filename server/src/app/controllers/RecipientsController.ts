@@ -3,6 +3,28 @@ import { Request, Response } from 'express';
 import Recipient from '../models/Recipient';
 
 class RecipientsController {
+  public async index(req: Request, res: Response): Promise<Response> {
+    try {
+      const recipients: Recipient[] = await Recipient.findAll();
+
+      return res.status(200).json(recipients);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  public async show(req: Request, res: Response): Promise<Response> {
+    const { recipient_id } = req.params;
+
+    try {
+      const recipient: Recipient = await Recipient.findByPk(recipient_id);
+
+      return res.status(200).json(recipient);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
   public async store(req: Request, res: Response): Promise<Response> {
     const {
       name,

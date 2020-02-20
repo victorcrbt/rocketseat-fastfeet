@@ -10,6 +10,7 @@ import userStoreValidation from './app/validators/userStore';
 import sessionStoreValidation from './app/validators/sessionStore';
 import recipientStoreValidation from './app/validators/recipientStore';
 import recipientUpdateValidation from './app/validators/recipientUpdate';
+import recipientValidations from './app/validators/recipientValidations';
 
 const routes = Router();
 
@@ -18,6 +19,12 @@ routes.post('/sessions', sessionStoreValidation, SessionController.store);
 routes.use(authMiddleware);
 routes.post('/users', userStoreValidation, UserController.store);
 
+routes.get('/recipients', RecipientController.index);
+routes.get(
+  '/recipients/:recipient_id',
+  recipientValidations.show,
+  RecipientController.show
+);
 routes.post('/recipients', recipientStoreValidation, RecipientController.store);
 routes.put(
   '/recipients/:recipient_id',
