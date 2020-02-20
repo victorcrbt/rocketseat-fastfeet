@@ -10,7 +10,7 @@ import userStoreValidation from './app/validators/userStore';
 import sessionStoreValidation from './app/validators/sessionStore';
 import recipientStoreValidation from './app/validators/recipientStore';
 import recipientUpdateValidation from './app/validators/recipientUpdate';
-import recipientValidations from './app/validators/recipientValidations';
+import recipientShowValidation from './app/validators/recipientShow';
 
 const routes = Router();
 
@@ -22,7 +22,7 @@ routes.post('/users', userStoreValidation, UserController.store);
 routes.get('/recipients', RecipientController.index);
 routes.get(
   '/recipients/:recipient_id',
-  recipientValidations.show,
+  recipientShowValidation,
   RecipientController.show
 );
 routes.post('/recipients', recipientStoreValidation, RecipientController.store);
