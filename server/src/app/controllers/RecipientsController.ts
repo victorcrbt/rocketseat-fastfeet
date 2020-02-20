@@ -83,6 +83,18 @@ class RecipientsController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  public async destroy(req: Request, res: Response): Promise<Response> {
+    const { recipient_id } = req.params;
+
+    try {
+      await Recipient.destroy({ where: { id: recipient_id } });
+
+      return res.status(204).json();
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 export default new RecipientsController();

@@ -10,7 +10,7 @@ import userStoreValidation from './app/validators/userStore';
 import sessionStoreValidation from './app/validators/sessionStore';
 import recipientStoreValidation from './app/validators/recipientStore';
 import recipientUpdateValidation from './app/validators/recipientUpdate';
-import recipientShowValidation from './app/validators/recipientShow';
+import recipientShowAndDestroyValidation from './app/validators/recipientShowAndDestroy';
 
 const routes = Router();
 
@@ -22,7 +22,7 @@ routes.post('/users', userStoreValidation, UserController.store);
 routes.get('/recipients', RecipientController.index);
 routes.get(
   '/recipients/:recipient_id',
-  recipientShowValidation,
+  recipientShowAndDestroyValidation,
   RecipientController.show
 );
 routes.post('/recipients', recipientStoreValidation, RecipientController.store);
@@ -30,6 +30,11 @@ routes.put(
   '/recipients/:recipient_id',
   recipientUpdateValidation,
   RecipientController.update
+);
+routes.delete(
+  '/recipients/:recipient_id',
+  recipientShowAndDestroyValidation,
+  RecipientController.destroy
 );
 
 export default routes;
