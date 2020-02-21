@@ -4,6 +4,8 @@ server/node_modules/
 server/dist/
 server/__test__/database.sqlite
 server/.env
+server/temp/uploads/*
+!server/temp/uploads/.gitkeep
 
 client/node_modules/
 
