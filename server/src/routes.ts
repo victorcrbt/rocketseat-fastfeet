@@ -1,8 +1,13 @@
 import { Router } from 'express';
+import multer from 'multer';
 
+import multerConfig from './config/multer';
+
+// Middlewares
 import authMiddleware from './app/middlewares/auth';
 
 // Controllers
+import FileController from './app/controllers/FileController';
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 import RecipientController from './app/controllers/RecipientsController';
@@ -13,6 +18,7 @@ import SessionValidator from './app/validators/SessionValidator';
 import UserValidator from './app/validators/UserValidator';
 
 const routes = Router();
+const upload = multer(multerConfig);
 
 routes.post('/sessions', SessionValidator.store, SessionController.store);
 
@@ -36,5 +42,7 @@ routes.delete(
   RecipientValidator.destroy,
   RecipientController.destroy
 );
+
+routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;
