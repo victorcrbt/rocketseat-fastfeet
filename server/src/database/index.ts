@@ -3,10 +3,11 @@ import { Sequelize } from 'sequelize';
 import User from '../app/models/User';
 import Recipient from '../app/models/Recipient';
 import File from '../app/models/File';
+import Deliveryman from '../app/models/Deliveryman';
 
 import config from '../config/database';
 
-const models = [User, Recipient, File];
+const models = [User, Recipient, File, Deliveryman];
 
 class Database {
   connection: Sequelize;
@@ -20,7 +21,12 @@ class Database {
 
     models
       .map(model => model.boot(this.connection))
-      .map(model => model.associate && model.associate(this.connection.models));
+      .map(
+        model =>
+          // eslint-disable-next-line
+        model.associate &&
+        model.associate(this.connection.models)
+      );
   }
 }
 
