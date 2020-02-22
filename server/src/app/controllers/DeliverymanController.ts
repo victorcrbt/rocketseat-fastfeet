@@ -1,0 +1,92 @@
+import { Request, Response } from 'express';
+
+import Deliveryman from '../models/Deliveryman';
+
+class DeliverymenController {
+  public async index(req: Request, res: Response): Promise<Response> {
+    const { page = 1, limit = 10 } = req.query;
+
+    try {
+      const deliverymen = await Deliveryman.findAndCountAll({
+        include: [
+          {
+            attributes: ['id', 'name', 'avatar_url', 'mime_type'],
+            association: 'avatar',
+          },
+        ],
+        offset: page > 0 ? (page - 1) * limit : 0,
+        limit,
+      });
+      const totalPages = Math.ceil(deliverymen.count / limit);
+
+      return res.status(200).json({
+        page: Number(page),
+        total_pages: totalPages,
+        data: deliverymen.rows,
+      });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  public async show(req: Request, res: Response): Promise<Response> {
+    const { deliveryman_id } = req.params;
+
+    const deliveryman = await Deliveryman.findByPk(deliveryman_id, {
+      include: [
+        {
+          attributes: ['id', 'name', 'avatar_url', 'mime_type'],
+          association: 'avatar',
+        },
+      ],
+    });
+
+    return res.status(200).json(deliveryman);
+  }
+
+  public async store(req: Request, res: Response): Promise<Response> {
+    const { name, avatar_id, email } = req.body;
+
+    try {
+      const deliveryman = await Deliveryman.create(
+        { name, avatar_id, email },
+        { include: [{ association: 'avatar' }] }
+      );
+
+      await deliveryman.reload();
+
+      return res.status(201).json(deliveryman);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  public async update(req: Request, res: Response): Promise<Response> {
+    const { name, avatar_id, email } = req.body;
+    const { deliveryman_id } = req.params;
+
+    try {
+      const deliveryman = await Deliveryman.findByPk(deliveryman_id);
+
+      await deliveryman.update({ name, avatar_id, email });
+
+      return res.status(200).json(deliveryman);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  public async destroy(req: Request, res: Response): Promise<Response> {
+    const { deliveryman_id } = req.params;
+
+    try {
+      await Deliveryman.destroy({ where: { id: deliveryman_id } });
+
+      return res.status(204).json();
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+}
+
+export default new DeliverymenController();
