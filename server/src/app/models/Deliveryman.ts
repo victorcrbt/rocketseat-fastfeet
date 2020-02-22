@@ -16,14 +16,17 @@ class Deliveryman extends Model {
         email: Sequelize.STRING,
         avatar_id: Sequelize.INTEGER,
       },
-      { sequelize, tableName: 'deliverymen' }
+      {
+        sequelize,
+        tableName: 'deliverymen',
+      }
     );
 
     return this;
   }
 
   public static associate(models): void {
-    this.belongsTo(models.File, { targetKey: 'id', as: 'avatar' });
+    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
   }
 }
 
