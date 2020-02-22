@@ -14,6 +14,7 @@ import UserController from './app/controllers/UserController';
 import RecipientController from './app/controllers/RecipientsController';
 
 // Input validators
+import DeliverymanValidator from './app/validators/DeliverymanValidator';
 import RecipientValidator from './app/validators/RecipientValidator';
 import SessionValidator from './app/validators/SessionValidator';
 import UserValidator from './app/validators/UserValidator';
@@ -45,10 +46,26 @@ routes.delete(
 );
 
 routes.get('/deliverymen', DelivermanController.index);
-routes.get('/deliverymen/:deliveryman_id', DelivermanController.show);
-routes.post('/deliverymen', DelivermanController.store);
-routes.put('/deliverymen/:deliveryman_id', DelivermanController.update);
-routes.delete('/deliverymen/:deliveryman_id', DelivermanController.destroy);
+routes.get(
+  '/deliverymen/:deliveryman_id',
+  DeliverymanValidator.show,
+  DelivermanController.show
+);
+routes.post(
+  '/deliverymen',
+  DeliverymanValidator.store,
+  DelivermanController.store
+);
+routes.put(
+  '/deliverymen/:deliveryman_id',
+  DeliverymanValidator.update,
+  DelivermanController.update
+);
+routes.delete(
+  '/deliverymen/:deliveryman_id',
+  DeliverymanValidator.destroy,
+  DelivermanController.destroy
+);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
