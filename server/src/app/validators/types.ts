@@ -1,3 +1,23 @@
+export interface DeliverymanShowSchema {
+  deliveryman: string;
+}
+
+export interface DeliverymanStoreSchema {
+  name: string;
+  avatar_id: number;
+  email: string;
+}
+
+export interface DeliverymanUpdateSchema {
+  name: string;
+  avatar_id: number;
+  email: string;
+}
+
+export interface DeliverymanDestroySchema {
+  deliveryman: string;
+}
+
 export interface RecipientShowSchema {
   recipient: string;
 }
