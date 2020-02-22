@@ -11,6 +11,7 @@ class DeliverymenController {
         include: [
           {
             attributes: ['id', 'name', 'avatar_url', 'mime_type'],
+            as: 'avatar',
             association: 'avatar',
           },
         ],
@@ -69,6 +70,16 @@ class DeliverymenController {
       const deliveryman = await Deliveryman.findByPk(deliveryman_id);
 
       await deliveryman.update({ name, avatar_id, email });
+
+      await deliveryman.reload({
+        include: [
+          {
+            association: 'avatar',
+            as: 'avatar',
+            attributes: ['id', 'name', 'avatar_url', 'mime_type'],
+          },
+        ],
+      });
 
       return res.status(200).json(deliveryman);
     } catch (error) {
