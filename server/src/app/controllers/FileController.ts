@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { ControllerMethod } from 'express';
 
 import File from '../models/File';
 
 class FileController {
-  public async store(req: Request, res: Response): Promise<Response> {
+  public store: ControllerMethod = async (req, res) => {
     const {
       originalname: original_name,
       filename: name,
@@ -21,7 +21,7 @@ class FileController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 }
 
 export default new FileController();

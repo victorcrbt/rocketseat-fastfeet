@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { ControllerMethod } from 'express';
 
 import Recipient from '../models/Recipient';
 
 class RecipientsController {
-  public async index(req: Request, res: Response): Promise<Response> {
+  public index: ControllerMethod = async (req, res) => {
     try {
       const recipients: Recipient[] = await Recipient.findAll();
 
@@ -11,9 +11,9 @@ class RecipientsController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 
-  public async show(req: Request, res: Response): Promise<Response> {
+  public show: ControllerMethod = async (req, res) => {
     const { recipient_id } = req.params;
 
     try {
@@ -23,9 +23,9 @@ class RecipientsController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 
-  public async store(req: Request, res: Response): Promise<Response> {
+  public store: ControllerMethod = async (req, res) => {
     const {
       name,
       address,
@@ -51,9 +51,9 @@ class RecipientsController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 
-  public async update(req: Request, res: Response): Promise<Response> {
+  public update: ControllerMethod = async (req, res) => {
     const { recipient_id } = req.params;
     const {
       name,
@@ -82,9 +82,9 @@ class RecipientsController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 
-  public async destroy(req: Request, res: Response): Promise<Response> {
+  public destroy: ControllerMethod = async (req, res) => {
     const { recipient_id } = req.params;
 
     try {
@@ -94,7 +94,7 @@ class RecipientsController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 }
 
 export default new RecipientsController();
