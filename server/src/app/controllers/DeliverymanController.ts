@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { ControllerMethod } from 'express';
 
 import Deliveryman from '../models/Deliveryman';
 
 class DeliverymenController {
-  public async index(req: Request, res: Response): Promise<Response> {
+  public index: ControllerMethod = async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
 
     try {
@@ -28,9 +28,9 @@ class DeliverymenController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 
-  public async show(req: Request, res: Response): Promise<Response> {
+  public show: ControllerMethod = async (req, res) => {
     const { deliveryman_id } = req.params;
 
     const deliveryman = await Deliveryman.findByPk(deliveryman_id, {
@@ -43,9 +43,9 @@ class DeliverymenController {
     });
 
     return res.status(200).json(deliveryman);
-  }
+  };
 
-  public async store(req: Request, res: Response): Promise<Response> {
+  public store: ControllerMethod = async (req, res) => {
     const { name, avatar_id, email } = req.body;
 
     try {
@@ -60,9 +60,9 @@ class DeliverymenController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 
-  public async update(req: Request, res: Response): Promise<Response> {
+  public update: ControllerMethod = async (req, res) => {
     const { name, avatar_id, email } = req.body;
     const { deliveryman_id } = req.params;
 
@@ -85,9 +85,9 @@ class DeliverymenController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 
-  public async destroy(req: Request, res: Response): Promise<Response> {
+  public destroy: ControllerMethod = async (req, res) => {
     const { deliveryman_id } = req.params;
 
     try {
@@ -97,7 +97,7 @@ class DeliverymenController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 }
 
 export default new DeliverymenController();

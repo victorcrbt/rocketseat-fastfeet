@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { ControllerMethod } from 'express';
 
 import User from '../models/User';
 
 class UserController {
-  public async store(req: Request, res: Response): Promise<Response> {
+  public store: ControllerMethod = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
@@ -13,7 +13,7 @@ class UserController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 }
 
 export default new UserController();

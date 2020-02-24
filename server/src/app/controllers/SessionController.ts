@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import { ControllerMethod } from 'express';
 import jwt from 'jsonwebtoken';
 
 import User from '../models/User';
 
 class SessionController {
-  public async store(req: Request, res: Response): Promise<Response> {
+  public store: ControllerMethod = async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -26,7 +26,7 @@ class SessionController {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
-  }
+  };
 }
 
 export default new SessionController();
