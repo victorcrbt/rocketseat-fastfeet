@@ -4,10 +4,11 @@ import User from '../app/models/User';
 import Recipient from '../app/models/Recipient';
 import File from '../app/models/File';
 import Deliveryman from '../app/models/Deliveryman';
+import Package from '../app/models/Package';
 
 import config from '../config/database';
 
-const models = [User, Recipient, File, Deliveryman];
+const models = [User, Recipient, File, Deliveryman, Package];
 
 class Database {
   connection: Sequelize;
