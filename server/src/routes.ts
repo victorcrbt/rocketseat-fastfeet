@@ -9,6 +9,7 @@ import authMiddleware from './app/middlewares/auth';
 // Controllers
 import DelivermanController from './app/controllers/DeliverymanController';
 import FileController from './app/controllers/FileController';
+import PackageController from './app/controllers/PackageController';
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 import RecipientController from './app/controllers/RecipientsController';
@@ -66,6 +67,11 @@ routes.delete(
   DeliverymanValidator.destroy,
   DelivermanController.destroy
 );
+
+routes.get('/packages', PackageController.index);
+routes.post('/packages', PackageController.store);
+routes.put('/packages/:package_id', PackageController.update);
+routes.delete('/packages/:package_id', PackageController.destroy);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
