@@ -18,6 +18,31 @@ export interface DeliverymanDestroySchema {
   deliveryman: string;
 }
 
+export interface PackageShowSchema {
+  package_id: string;
+}
+
+export interface PackageStoreSchema {
+  recipient_id: number;
+  deliveryman_id: number;
+  product: string;
+  start_date: Date;
+}
+
+export interface PackageUpdateSchema {
+  package_id: string;
+  recipient_id: number;
+  deliveryman_id: number;
+  product: string;
+  start_date: Date;
+  end_date: Date;
+  canceled_at: Date;
+}
+
+export interface PackageDestroySchema {
+  package_id: string;
+}
+
 export interface RecipientShowSchema {
   recipient: string;
 }
