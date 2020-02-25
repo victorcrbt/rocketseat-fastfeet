@@ -1,6 +1,10 @@
 import Sequelize, { Sequelize as Connection } from 'sequelize';
 import { Model } from 'sequelize-typescript';
 
+import Deliveryman from './Deliveryman';
+import File from './File';
+import Recipient from './Recipient';
+
 class Package extends Model {
   public readonly id: number;
   public recipient_id: number;
@@ -12,6 +16,9 @@ class Package extends Model {
   public end_date: Date;
   public readonly created_at: Date;
   public readonly updated_at: Date;
+  public readonly deliveryman: Deliveryman;
+  public readonly file: File;
+  public readonly recipient: Recipient;
 
   public static boot(sequelize: Connection): typeof Package {
     super.init(
