@@ -31,95 +31,81 @@ const upload = multer(multerConfig);
 routes.post('/sessions', SessionValidator.store, SessionController.store);
 
 routes.use(authMiddleware);
+
+/**
+ * Users
+ */
 routes.post('/users', UserValidator.store, UserController.store);
 
 /**
  * Recipients
  */
-routes.get('/recipients', RecipientController.index);
-routes.get(
-  '/recipients/:recipient_id',
-  RecipientValidator.show,
-  RecipientController.show
-);
-routes.post('/recipients', RecipientValidator.store, RecipientController.store);
-routes.put(
-  '/recipients/:recipient_id',
-  RecipientValidator.update,
-  RecipientController.update
-);
-routes.delete(
-  '/recipients/:recipient_id',
-  RecipientValidator.destroy,
-  RecipientController.destroy
-);
+routes
+  .route('/recipients')
+  .get(RecipientController.index)
+  .post(RecipientValidator.store, RecipientController.store);
+
+routes
+  .route('/recipients/:recipient_id')
+  .get(RecipientValidator.show, RecipientController.show)
+  .put(RecipientValidator.update, RecipientController.update)
+  .delete(RecipientValidator.destroy, RecipientController.destroy);
 
 /**
  * Deliverymen
  */
-routes.get('/deliverymen', DelivermanController.index);
-routes.get(
-  '/deliverymen/:deliveryman_id',
-  DeliverymanValidator.show,
-  DelivermanController.show
-);
-routes.post(
-  '/deliverymen',
-  DeliverymanValidator.store,
-  DelivermanController.store
-);
-routes.put(
-  '/deliverymen/:deliveryman_id',
-  DeliverymanValidator.update,
-  DelivermanController.update
-);
-routes.delete(
-  '/deliverymen/:deliveryman_id',
-  DeliverymanValidator.destroy,
-  DelivermanController.destroy
-);
+routes
+  .route('/deliverymen')
+  .get(DelivermanController.index)
+  .post(DeliverymanValidator.store, DelivermanController.store);
+
+routes
+  .route('/deliverymen/:deliveryman_id')
+  .get(DeliverymanValidator.show, DelivermanController.show)
+  .put(DeliverymanValidator.update, DelivermanController.update)
+  .delete(DeliverymanValidator.destroy, DelivermanController.destroy);
 
 /**
- * Packages
+ * Deliveries
+ *
+ * Change endpoint, table name and fix possible issues.
+ * Prefered to make automated tests before to ensure that nothing will break.
  */
-routes.get('/packages', PackageController.index);
-routes.post('/packages', PackageValidator.store, PackageController.store);
-routes.put(
-  '/packages/:package_id',
-  PackageValidator.update,
-  PackageController.update
-);
+routes
+  .route('/packages')
+  .get(PackageController.index)
+  .post(PackageValidator.store, PackageController.store);
+
+routes
+  .route('/packages/:package_id')
+  .put(PackageValidator.update, PackageController.update);
 
 /**
  * DeliveryProblems
  */
-routes.get('/packages/:package_id/problems', DeliveryProblemController.index);
-routes.post(
-  '/packages/:package_id/problems',
-  DeliveryProblemValidator.store,
-  DeliveryProblemController.store
-);
+routes
+  .route('/problem/:problem_id')
+  .get(DeliveryProblemValidator.show, DeliveryProblemController.show);
 
-routes.get(
-  '/problem/:problem_id',
-  DeliveryProblemValidator.show,
-  DeliveryProblemController.show
-);
-routes.delete(
-  '/problem/:problem_id/cancel_delivery',
-  PackageValidator.destroy,
-  PackageController.destroy
-);
+routes
+  .route('/packages/:package_id/problems')
+  .get(DeliveryProblemController.index)
+  .post(DeliveryProblemValidator.store, DeliveryProblemController.store);
+
+routes
+  .route('/problem/:problem_id/cancel_delivery')
+  .delete(PackageValidator.destroy, PackageController.destroy);
 
 /**
  * Deliveries
  */
-routes.get('/deliverymen/:deliveryman_id/deliveries', DeliveryController.index);
-routes.put(
-  '/deliverymen/:deliveryman_id/deliveries/:package_id',
-  DeliveryValidator.update,
-  DeliveryController.update
-);
+routes
+  .route('/deliverymen/:deliveryman_id/deliveries')
+  .get(DeliveryController.index);
+
+routes
+  .route('/deliverymen/:deliveryman_id/deliveries/:package_id')
+  .put(DeliveryValidator.update, DeliveryController.update);
 
 /**
  * Files
