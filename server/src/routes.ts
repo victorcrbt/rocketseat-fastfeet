@@ -19,6 +19,7 @@ import RecipientController from './app/controllers/RecipientsController';
 // Input validators
 import DeliverymanValidator from './app/validators/DeliverymanValidator';
 import DeliveryValidator from './app/validators/DeliveryValidator';
+import DeliveryProblemValidator from './app/validators/DeliveryProblemValidator';
 import PackageValidator from './app/validators/PackageValidator';
 import RecipientValidator from './app/validators/RecipientValidator';
 import SessionValidator from './app/validators/SessionValidator';
@@ -98,6 +99,11 @@ routes.delete(
  * DeliveryProblems
  */
 routes.get('/packages/:package_id/problems', DeliveryProblemController.index);
+routes.post(
+  '/packages/:package_id/problems',
+  DeliveryProblemValidator.store,
+  DeliveryProblemController.store
+);
 
 /**
  * Deliveries
