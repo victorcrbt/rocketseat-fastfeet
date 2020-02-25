@@ -5,10 +5,11 @@ import Recipient from '../app/models/Recipient';
 import File from '../app/models/File';
 import Deliveryman from '../app/models/Deliveryman';
 import Package from '../app/models/Package';
+import DeliveryProblem from '../app/models/DeliveryProblem';
 
 import config from '../config/database';
 
-const models = [User, Recipient, File, Deliveryman, Package];
+const models = [User, Recipient, File, Deliveryman, Package, DeliveryProblem];
 
 class Database {
   connection: Sequelize;
