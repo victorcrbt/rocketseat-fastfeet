@@ -26,6 +26,10 @@ export interface DeliveryUpdateSchema {
   signature_id: number;
 }
 
+export interface DeliveryProblemShowSchema {
+  problem_id: string;
+}
+
 export interface DeliveryProblemStoreSchema {
   package_id: string;
   description: string;

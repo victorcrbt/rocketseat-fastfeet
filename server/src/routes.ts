@@ -99,6 +99,12 @@ routes.post(
   DeliveryProblemValidator.store,
   DeliveryProblemController.store
 );
+
+routes.get(
+  '/problem/:problem_id',
+  DeliveryProblemValidator.show,
+  DeliveryProblemController.show
+);
 routes.delete(
   '/problem/:problem_id/cancel_delivery',
   PackageValidator.destroy,
