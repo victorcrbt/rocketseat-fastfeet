@@ -1,6 +1,7 @@
 import { ControllerMethod } from 'express';
 
-import Mail from '../../lib/Mail';
+import Queue from '../../lib/Queue';
+import CancelDeliveryMail from '../jobs/CancelDeliveryMail';
 import DeliveryProblem from '../models/DeliveryProblem';
 import Package from '../models/Package';
 
@@ -153,19 +154,7 @@ class PackageController {
         canceled_at: new Date(),
       });
 
-      await Mail.sendMail({
-        to: `${pack.deliveryman.name} <${pack.deliveryman.email}>`,
-        subject: 'Cancelamento de entrega',
-        template: 'deliveryCanceled',
-        context: {
-          deliveryman: pack.deliveryman.name,
-          package_id: pack.id,
-          product: pack.product,
-          recipient_name: pack.recipient.name,
-          recipient_address: `${pack.recipient.address}, ${pack.recipient.address_number} - ${pack.recipient.city}, ${pack.recipient.state}`,
-          problem: problem.description,
-        },
-      });
+      await Queue.add(CancelDeliveryMail.key, { pack, problem });
 
       return res.status(204).json();
     } catch (error) {
