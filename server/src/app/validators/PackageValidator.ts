@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as yup from 'yup';
 import { isBefore, isAfter } from 'date-fns';
 
+import DeliveryProblem from '../models/DeliveryProblem';
 import Package from '../models/Package';
 import {
   PackageShowSchema,
@@ -14,7 +15,7 @@ interface MethodInterface {
   (req: Request, res: Response, next: NextFunction): Promise<Response | void>;
 }
 
-class DelivermanValidator {
+class PackageValidator {
   public show: MethodInterface = async (req, res, next) => {
     const schema: yup.Schema<PackageShowSchema> = yup.object().shape({
       package_id: yup
@@ -118,29 +119,6 @@ class DelivermanValidator {
             return true;
           }
         ),
-      canceled_at: yup
-        .date()
-        .test(
-          'alreadyEnded',
-          'Não é possível cancelar uma entrega finalizada.',
-          // eslint-disable-next-line func-names, space-before-function-paren
-          date => {
-            if (date && currentPackage?.end_date) return false;
-
-            return true;
-          }
-        )
-        .test(
-          'beforeCurrentTime',
-          'A hora de cancelamento não pode ser inferior a hora atual.',
-          date => {
-            const now = new Date();
-
-            if (isBefore(date, now)) return false;
-
-            return true;
-          }
-        ),
     });
 
     const fields = {
@@ -161,14 +139,14 @@ class DelivermanValidator {
 
   public destroy: MethodInterface = async (req, res, next) => {
     const schema: yup.Schema<PackageDestroySchema> = yup.object().shape({
-      package_id: yup
+      problem_id: yup
         .string()
-        .required('ID da encomenda não informado.')
-        .existsWithID(Package, 'Encomenda não encontrada.'),
+        .required('ID do problema não informado.')
+        .existsWithID(DeliveryProblem, 'Problema não encontrada.'),
     });
 
     const fields = {
-      package_id: req.params.package_id,
+      problem_id: req.params.problem_id,
     };
 
     try {
@@ -183,4 +161,4 @@ class DelivermanValidator {
   };
 }
 
-export default new DelivermanValidator();
+export default new PackageValidator();

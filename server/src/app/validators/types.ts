@@ -18,6 +18,23 @@ export interface DeliverymanDestroySchema {
   deliveryman: string;
 }
 
+export interface DeliveryUpdateSchema {
+  package_id: string;
+  deliveryman_id: string;
+  start_date: Date;
+  end_date: Date;
+  signature_id: number;
+}
+
+export interface DeliveryProblemShowSchema {
+  problem_id: string;
+}
+
+export interface DeliveryProblemStoreSchema {
+  package_id: string;
+  description: string;
+}
+
 export interface PackageShowSchema {
   package_id: string;
 }
@@ -36,11 +53,10 @@ export interface PackageUpdateSchema {
   product: string;
   start_date: Date;
   end_date: Date;
-  canceled_at: Date;
 }
 
 export interface PackageDestroySchema {
-  package_id: string;
+  problem_id: string;
 }
 
 export interface RecipientShowSchema {

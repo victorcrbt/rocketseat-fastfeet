@@ -1,5 +1,9 @@
 import { ControllerMethod } from 'express';
 
+import Queue from '../../lib/Queue';
+import CancelDeliveryMail from '../jobs/CancelDeliveryMail';
+import WithdrawOrderMail from '../jobs/WithdrawOrderMail';
+import DeliveryProblem from '../models/DeliveryProblem';
 import Package from '../models/Package';
 
 class PackageController {
@@ -71,6 +75,8 @@ class PackageController {
         ],
       });
 
+      await Queue.add(WithdrawOrderMail.key, { pack });
+
       return res.status(201).json(pack);
     } catch (error) {
       return res.status(500).json({ error: error.message });
@@ -84,7 +90,6 @@ class PackageController {
       product,
       start_date,
       end_date,
-      canceled_at,
     } = req.body;
     const { package_id } = req.params;
 
@@ -97,7 +102,6 @@ class PackageController {
         product,
         start_date,
         end_date,
-        canceled_at,
       });
 
       await pack.reload({
@@ -131,10 +135,33 @@ class PackageController {
   };
 
   public destroy: ControllerMethod = async (req, res) => {
-    const { package_id } = req.params;
+    const { problem_id } = req.params;
 
     try {
-      await Package.destroy({ where: { id: package_id } });
+      const problem = await DeliveryProblem.findByPk(problem_id);
+
+      const pack = await Package.findByPk(problem.package_id, {
+        include: [
+          {
+            association: 'deliveryman',
+            as: 'deliveryman',
+          },
+          {
+            association: 'recipient',
+            as: 'recipient',
+          },
+        ],
+      });
+
+      if (pack.canceled_at) {
+        return res.status(400).json({ error: 'Entrega já cancelada.' });
+      }
+
+      await pack.update({
+        canceled_at: new Date(),
+      });
+
+      await Queue.add(CancelDeliveryMail.key, { pack, problem });
 
       return res.status(204).json();
     } catch (error) {
