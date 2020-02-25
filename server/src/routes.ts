@@ -89,11 +89,6 @@ routes.put(
   PackageValidator.update,
   PackageController.update
 );
-routes.delete(
-  '/packages/:package_id',
-  PackageValidator.destroy,
-  PackageController.destroy
-);
 
 /**
  * DeliveryProblems
@@ -103,6 +98,11 @@ routes.post(
   '/packages/:package_id/problems',
   DeliveryProblemValidator.store,
   DeliveryProblemController.store
+);
+routes.delete(
+  '/problem/:problem_id/cancel_delivery',
+  PackageValidator.destroy,
+  PackageController.destroy
 );
 
 /**

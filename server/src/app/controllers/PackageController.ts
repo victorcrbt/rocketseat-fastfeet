@@ -1,5 +1,6 @@
 import { ControllerMethod } from 'express';
 
+import DeliveryProblem from '../models/DeliveryProblem';
 import Package from '../models/Package';
 
 class PackageController {
@@ -84,7 +85,6 @@ class PackageController {
       product,
       start_date,
       end_date,
-      canceled_at,
     } = req.body;
     const { package_id } = req.params;
 
@@ -97,7 +97,6 @@ class PackageController {
         product,
         start_date,
         end_date,
-        canceled_at,
       });
 
       await pack.reload({
@@ -131,10 +130,16 @@ class PackageController {
   };
 
   public destroy: ControllerMethod = async (req, res) => {
-    const { package_id } = req.params;
+    const { problem_id } = req.params;
 
     try {
-      await Package.destroy({ where: { id: package_id } });
+      const problem = await DeliveryProblem.findByPk(problem_id);
+
+      const pack = await Package.findByPk(problem.package_id);
+
+      await pack.update({
+        canceled_at: new Date(),
+      });
 
       return res.status(204).json();
     } catch (error) {

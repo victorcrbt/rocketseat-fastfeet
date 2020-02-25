@@ -49,11 +49,10 @@ export interface PackageUpdateSchema {
   product: string;
   start_date: Date;
   end_date: Date;
-  canceled_at: Date;
 }
 
 export interface PackageDestroySchema {
-  package_id: string;
+  problem_id: string;
 }
 
 export interface RecipientShowSchema {
