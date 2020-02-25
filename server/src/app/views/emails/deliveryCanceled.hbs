@@ -1,0 +1,19 @@
+<strong>Olá, {{ deliveryman }}!</strong>
+
+<p>
+  Viemos por meio deste e-mail informar que uma de suas entregas foi cancelada por haver ocorrido algum problema.
+  Confira abaixo os dados da entrega.
+</p>
+
+<h3>Dados da entrega</h3>
+<p>
+  <strong>ID</strong>: {{ package_id }} <br />
+  <strong>Produto</strong>: {{ product }} <br />
+  <strong>Destinatário</strong>: {{ recipient_name }} <br />
+  <strong>Endereço</strong>: {{ recipient_address }} <br />
+</p>
+
+<h3>Motivo do cancelamento</h3>
+<p>
+  {{ problem }}
+</p>
