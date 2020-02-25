@@ -6,6 +6,18 @@ A aplicação possui algumas diferenças do proposto no desafio:
 
 - Provavelmente o backend irá possuir testes automatizados. Ainda incerto se o frontend irá possuir, talvez em algumas funcionalidades especificas.
 
+## Ferramentas utilizadas
+
+#### Backend
+
+- **ExpressJS:** Micro framework para criação de aplicações com Node.js.
+- **Sequelize:** ORM para interação com diversos bancos de dados SQL e melhorar a produtividade, na maioria dos casos, tirando a necessidade de escrever as queries manualmente.
+- **Date-fns:** Biblioteca leve para lider com datas, também melhorando drásticamente a produtividade.
+- **Multer:** Biblioteca para lidar com formulários do tipo multipart/form-data. Nesta aplicação, usado principalmente para upload de arquivos.
+- **Nodemailer:** Biblioteca para envio de e-mails.
+- **Bee-queue:** Biblioteca de filas para gerenciamento de jobs.
+- **Yup:** Biblioteca para validação de entrada de dados do usuário.
+
 ## Instalação dos pacotes
 
 A partir da pasta raiz, execute o comando `yarn install` ou `npm run install` (não executar somente `yarn`, pois o que citei é um script). A biblioteca **concurrently** será disparada e irá fazer a instalação de todos os pacotes do server, client e mobile automaticamente.
