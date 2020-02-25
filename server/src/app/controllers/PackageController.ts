@@ -153,6 +153,10 @@ class PackageController {
         ],
       });
 
+      if (pack.canceled_at) {
+        return res.status(400).json({ error: 'Entrega já cancelada.' });
+      }
+
       await pack.update({
         canceled_at: new Date(),
       });
