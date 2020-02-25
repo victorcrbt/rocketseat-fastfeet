@@ -7,6 +7,7 @@ import multerConfig from './config/multer';
 import authMiddleware from './app/middlewares/auth';
 
 // Controllers
+import DeliveryController from './app/controllers/DeliveryController';
 import DelivermanController from './app/controllers/DeliverymanController';
 import FileController from './app/controllers/FileController';
 import PackageController from './app/controllers/PackageController';
@@ -90,6 +91,11 @@ routes.delete(
   PackageValidator.destroy,
   PackageController.destroy
 );
+
+/**
+ * Deliveries
+ */
+routes.get('/deliverymen/:deliveryman_id/deliveries', DeliveryController.index);
 
 /**
  * Files
