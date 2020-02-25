@@ -17,6 +17,7 @@ import RecipientController from './app/controllers/RecipientsController';
 
 // Input validators
 import DeliverymanValidator from './app/validators/DeliverymanValidator';
+import DeliveryValidator from './app/validators/DeliveryValidator';
 import PackageValidator from './app/validators/PackageValidator';
 import RecipientValidator from './app/validators/RecipientValidator';
 import SessionValidator from './app/validators/SessionValidator';
@@ -96,6 +97,11 @@ routes.delete(
  * Deliveries
  */
 routes.get('/deliverymen/:deliveryman_id/deliveries', DeliveryController.index);
+routes.put(
+  '/deliverymen/:deliveryman_id/deliveries/:package_id',
+  DeliveryValidator.update,
+  DeliveryController.update
+);
 
 /**
  * Files

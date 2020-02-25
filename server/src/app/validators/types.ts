@@ -18,6 +18,14 @@ export interface DeliverymanDestroySchema {
   deliveryman: string;
 }
 
+export interface DeliveryUpdateSchema {
+  package_id: string;
+  deliveryman_id: string;
+  start_date: Date;
+  end_date: Date;
+  signature_id: number;
+}
+
 export interface PackageShowSchema {
   package_id: string;
 }
