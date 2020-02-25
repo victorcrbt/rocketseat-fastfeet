@@ -7,8 +7,9 @@ import multerConfig from './config/multer';
 import authMiddleware from './app/middlewares/auth';
 
 // Controllers
-import DeliveryController from './app/controllers/DeliveryController';
 import DelivermanController from './app/controllers/DeliverymanController';
+import DeliveryController from './app/controllers/DeliveryController';
+import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import FileController from './app/controllers/FileController';
 import PackageController from './app/controllers/PackageController';
 import SessionController from './app/controllers/SessionController';
@@ -80,7 +81,7 @@ routes.delete(
 /**
  * Packages
  */
-routes.get('/packages', PackageValidator.show, PackageController.index);
+routes.get('/packages', PackageController.index);
 routes.post('/packages', PackageValidator.store, PackageController.store);
 routes.put(
   '/packages/:package_id',
@@ -92,6 +93,11 @@ routes.delete(
   PackageValidator.destroy,
   PackageController.destroy
 );
+
+/**
+ * DeliveryProblems
+ */
+routes.get('/packages/:package_id/problems', DeliveryProblemController.index);
 
 /**
  * Deliveries
