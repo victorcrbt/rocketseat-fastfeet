@@ -14,7 +14,7 @@ interface MethodInterface {
   (req: Request, res: Response, next: NextFunction): Promise<Response | void>;
 }
 
-class DelivermanValidator {
+class PackageValidator {
   public show: MethodInterface = async (req, res, next) => {
     const schema: yup.Schema<PackageShowSchema> = yup.object().shape({
       package_id: yup
@@ -183,4 +183,4 @@ class DelivermanValidator {
   };
 }
 
-export default new DelivermanValidator();
+export default new PackageValidator();
