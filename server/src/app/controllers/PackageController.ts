@@ -2,6 +2,7 @@ import { ControllerMethod } from 'express';
 
 import Queue from '../../lib/Queue';
 import CancelDeliveryMail from '../jobs/CancelDeliveryMail';
+import WithdrawOrderMail from '../jobs/WithdrawOrderMail';
 import DeliveryProblem from '../models/DeliveryProblem';
 import Package from '../models/Package';
 
@@ -73,6 +74,8 @@ class PackageController {
           },
         ],
       });
+
+      await Queue.add(WithdrawOrderMail.key, { pack });
 
       return res.status(201).json(pack);
     } catch (error) {

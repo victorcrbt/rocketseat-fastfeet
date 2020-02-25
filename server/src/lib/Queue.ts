@@ -3,8 +3,9 @@ import Bee, { Job } from 'bee-queue';
 import redisConfig from '../config/redis';
 
 import CancelDeliveryMail from '../app/jobs/CancelDeliveryMail';
+import WithdrawOrderMail from '../app/jobs/WithdrawOrderMail';
 
-const jobs = [CancelDeliveryMail];
+const jobs = [CancelDeliveryMail, WithdrawOrderMail];
 
 interface QueueInterface {
   [key: string]: {
