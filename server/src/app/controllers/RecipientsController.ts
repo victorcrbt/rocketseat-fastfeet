@@ -1,11 +1,24 @@
 import { ControllerMethod } from 'express';
+import { Op, WhereOptions } from 'sequelize';
 
 import Recipient from '../models/Recipient';
 
+type Where = WhereOptions & {
+  name?: any;
+};
+
 class RecipientsController {
   public index: ControllerMethod = async (req, res) => {
+    const { name } = req.query;
+
+    const where: Where = {};
+
+    if (name) {
+      where.name = { [Op.iLike]: `%${name}%` };
+    }
+
     try {
-      const recipients: Recipient[] = await Recipient.findAll();
+      const recipients: Recipient[] = await Recipient.findAll({ where });
 
       return res.status(200).json(recipients);
     } catch (error) {

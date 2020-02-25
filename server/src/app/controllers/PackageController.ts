@@ -1,4 +1,5 @@
 import { ControllerMethod } from 'express';
+import { Op, WhereOptions } from 'sequelize';
 
 import Queue from '../../lib/Queue';
 import CancelDeliveryMail from '../jobs/CancelDeliveryMail';
@@ -6,10 +7,23 @@ import WithdrawOrderMail from '../jobs/WithdrawOrderMail';
 import DeliveryProblem from '../models/DeliveryProblem';
 import Package from '../models/Package';
 
+type Where = WhereOptions & {
+  product?: any;
+};
+
 class PackageController {
   public index: ControllerMethod = async (req, res) => {
+    const { product } = req.query;
+
+    const where: Where = {};
+
+    if (product) {
+      where.product = { [Op.iLike]: `%${product}%` };
+    }
+
     try {
       const packages = await Package.findAll({
+        where,
         include: [
           {
             association: 'deliveryman',
