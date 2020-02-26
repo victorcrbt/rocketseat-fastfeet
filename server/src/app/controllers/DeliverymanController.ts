@@ -30,11 +30,10 @@ class DeliverymenController {
         offset: page > 0 ? (page - 1) * limit : 0,
         limit,
       });
-      const totalPages = Math.ceil(deliverymen.count / limit);
 
       return res.status(200).json({
         page: Number(page),
-        total_pages: totalPages,
+        total_pages: Math.ceil(deliverymen.count / limit),
         data: deliverymen.rows,
       });
     } catch (error) {

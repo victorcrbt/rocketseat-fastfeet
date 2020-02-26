@@ -5,9 +5,10 @@ import DeliveryProblem from '../models/DeliveryProblem';
 class DeliveryProblemController {
   public index: ControllerMethod = async (req, res) => {
     const { package_id } = req.params;
+    const { page = 1, limit = 10 } = req.query;
 
     try {
-      const problems = await DeliveryProblem.findAll({
+      const problems = await DeliveryProblem.findAndCountAll({
         where: { package_id },
         attributes: {
           exclude: ['createdAt', 'updatedAt'],
@@ -39,9 +40,16 @@ class DeliveryProblemController {
             ],
           },
         ],
+        order: [['id', 'ASC']],
+        offset: page > 0 ? (page - 1) * limit : 0,
+        limit,
       });
 
-      return res.status(200).json(problems);
+      return res.status(200).json({
+        page: Number(page),
+        total_pages: Math.ceil(problems.count / limit),
+        data: problems.rows,
+      });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

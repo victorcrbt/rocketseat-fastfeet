@@ -9,7 +9,7 @@ type Where = WhereOptions & {
 
 class RecipientsController {
   public index: ControllerMethod = async (req, res) => {
-    const { name } = req.query;
+    const { name, page = 1, limit = 10 } = req.query;
 
     const where: Where = {};
 
@@ -18,9 +18,18 @@ class RecipientsController {
     }
 
     try {
-      const recipients: Recipient[] = await Recipient.findAll({ where });
+      const recipients = await Recipient.findAndCountAll({
+        where,
+        order: [['id', 'ASC']],
+        offset: page > 0 ? (page - 1) * limit : 0,
+        limit,
+      });
 
-      return res.status(200).json(recipients);
+      return res.status(200).json({
+        page: Number(page),
+        total_pages: Math.ceil(recipients.count / limit),
+        data: recipients.rows,
+      });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
