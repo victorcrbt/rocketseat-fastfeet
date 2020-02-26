@@ -44,9 +44,26 @@ module.exports = {
     'arrow-body-style': 'off',
   },
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
+      typescript: {
+        directory: '.',
+      },
       node: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      },
+      'babel-plugin-root-import': {
+        paths: [
+          {
+            rootPathSuffix: 'src',
+          },
+          {
+            rootPathPrefix: '#components/',
+            rootPathSuffix: 'src/components/',
+          },
+        ],
       },
     },
   },
