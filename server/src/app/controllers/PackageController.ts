@@ -1,4 +1,5 @@
 import { ControllerMethod } from 'express';
+import { Op, WhereOptions } from 'sequelize';
 
 import Queue from '../../lib/Queue';
 import CancelDeliveryMail from '../jobs/CancelDeliveryMail';
@@ -6,10 +7,23 @@ import WithdrawOrderMail from '../jobs/WithdrawOrderMail';
 import DeliveryProblem from '../models/DeliveryProblem';
 import Package from '../models/Package';
 
+type Where = WhereOptions & {
+  product?: any;
+};
+
 class PackageController {
   public index: ControllerMethod = async (req, res) => {
+    const { product, page = 1, limit = 10 } = req.query;
+
+    const where: Where = {};
+
+    if (product) {
+      where.product = { [Op.iLike]: `%${product}%` };
+    }
+
     try {
-      const packages = await Package.findAll({
+      const packages = await Package.findAndCountAll({
+        where,
         include: [
           {
             association: 'deliveryman',
@@ -31,9 +45,16 @@ class PackageController {
             },
           },
         ],
+        order: [['id', 'ASC']],
+        offset: page > 0 ? (page - 1) * limit : 0,
+        limit,
       });
 
-      return res.status(200).json(packages);
+      return res.status(200).json({
+        page: Number(page),
+        total_pages: Math.ceil(packages.count / limit),
+        data: packages.rows,
+      });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

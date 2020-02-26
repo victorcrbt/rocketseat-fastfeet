@@ -1,13 +1,35 @@
 import { ControllerMethod } from 'express';
+import { Op, WhereOptions } from 'sequelize';
 
 import Recipient from '../models/Recipient';
 
+type Where = WhereOptions & {
+  name?: any;
+};
+
 class RecipientsController {
   public index: ControllerMethod = async (req, res) => {
-    try {
-      const recipients: Recipient[] = await Recipient.findAll();
+    const { name, page = 1, limit = 10 } = req.query;
 
-      return res.status(200).json(recipients);
+    const where: Where = {};
+
+    if (name) {
+      where.name = { [Op.iLike]: `%${name}%` };
+    }
+
+    try {
+      const recipients = await Recipient.findAndCountAll({
+        where,
+        order: [['id', 'ASC']],
+        offset: page > 0 ? (page - 1) * limit : 0,
+        limit,
+      });
+
+      return res.status(200).json({
+        page: Number(page),
+        total_pages: Math.ceil(recipients.count / limit),
+        data: recipients.rows,
+      });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

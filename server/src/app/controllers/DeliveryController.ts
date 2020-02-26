@@ -42,11 +42,9 @@ class DeliveryController {
         limit,
       });
 
-      const totalPages = Math.ceil(packages.count / limit);
-
       return res.status(200).json({
         page: Number(page),
-        total_pages: totalPages,
+        total_pages: Math.ceil(packages.count / limit),
         data: packages.rows,
       });
     } catch (error) {

@@ -1,13 +1,25 @@
 import { ControllerMethod } from 'express';
+import { Op, WhereOptions } from 'sequelize';
 
 import Deliveryman from '../models/Deliveryman';
 
+type Where = WhereOptions & {
+  name?: any;
+};
+
 class DeliverymenController {
   public index: ControllerMethod = async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 10, name } = req.query;
+
+    const where: Where = {};
+
+    if (name) {
+      where.name = { [Op.iLike]: `%${name}%` };
+    }
 
     try {
       const deliverymen = await Deliveryman.findAndCountAll({
+        where,
         include: [
           {
             attributes: ['id', 'name', 'avatar_url', 'mime_type'],
@@ -18,11 +30,10 @@ class DeliverymenController {
         offset: page > 0 ? (page - 1) * limit : 0,
         limit,
       });
-      const totalPages = Math.ceil(deliverymen.count / limit);
 
       return res.status(200).json({
         page: Number(page),
-        total_pages: totalPages,
+        total_pages: Math.ceil(deliverymen.count / limit),
         data: deliverymen.rows,
       });
     } catch (error) {
