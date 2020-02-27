@@ -42,6 +42,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',
     'arrow-body-style': 'off',
+    'react/prop-types': 'off',
   },
   settings: {
     'import/parsers': {
