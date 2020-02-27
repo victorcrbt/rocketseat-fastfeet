@@ -8,6 +8,7 @@ module.exports = {
     'airbnb',
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -43,6 +44,7 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 'off',
     'arrow-body-style': 'off',
     'react/prop-types': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
   settings: {
     'import/parsers': {
