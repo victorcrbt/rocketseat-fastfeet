@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 interface ContainerProps {
+  computedBg?: string | null;
   variation: 'primary' | 'secondary' | 'success' | 'error' | 'warn' | 'info';
   backgroundColor?: string | undefined;
   textColor?: string | undefined;
@@ -24,11 +25,7 @@ export const Container = styled.div<ContainerProps>`
   transition: background 0.2s;
 
   &:hover {
-    background: ${props => {
-      return props.backgroundColor
-        ? darken(0.04, props.backgroundColor)
-        : darken(0.04, props.theme.colors[props.variation]);
-    }};
+    background: ${props => props.computedBg && darken(0.04, props.computedBg)};
   }
 
   button {

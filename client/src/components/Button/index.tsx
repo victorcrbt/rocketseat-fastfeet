@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import { Container } from './styles';
 
@@ -26,8 +26,23 @@ const Button: React.FC<ButtonProps> = ({
   className,
   ...rest
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [computedBg, setComputedBg] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!ref) return;
+
+    const bg = window
+      .getComputedStyle(ref.current as Element)
+      .getPropertyValue('background-color');
+
+    setComputedBg(bg);
+  }, [ref]);
+
   return (
     <Container
+      computedBg={computedBg}
+      ref={ref}
       className={className}
       variation={variation}
       backgroundColor={backgroundColor}
