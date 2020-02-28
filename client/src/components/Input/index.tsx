@@ -1,16 +1,26 @@
 import React, { useRef, useEffect } from 'react';
 import { useField } from '@unform/core';
 
-import { Container, TextInput } from './styles';
+import { Container, InputWrapper, TextInput } from './styles';
 
 interface Props {
   name: string;
+  icon?: React.ReactNode;
+  iconPosition?: 'left' | 'right';
+  fillIcon?: string;
   label?: string;
 }
 
 type InputProps = JSX.IntrinsicElements['input'] & Props;
 
-const Input: React.FC<InputProps> = ({ name, label, ...rest }) => {
+const Input: React.FC<InputProps> = ({
+  name,
+  icon,
+  iconPosition = 'left',
+  fillIcon = '#bbb',
+  label,
+  ...rest
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   // eslint-disable-next-line object-curly-newline
   const { fieldName, defaultValue, registerField, error } = useField(name);
@@ -33,13 +43,21 @@ const Input: React.FC<InputProps> = ({ name, label, ...rest }) => {
         for some reason the ref return as a string, which TypeScript don't accept. Casting the styled
         component as any type, works fine.
       */}
-      <TextInput
+      <InputWrapper
         error={error}
-        ref={inputRef}
-        defaultValue={defaultValue}
-        id={fieldName}
-        {...rest}
-      />
+        icon={!!icon}
+        iconPosition={iconPosition}
+        fillIcon={fillIcon}
+      >
+        <div className="icon left">{icon}</div>
+        <TextInput
+          ref={inputRef}
+          defaultValue={defaultValue}
+          id={fieldName}
+          {...rest}
+        />
+        <div className="icon right">{icon}</div>
+      </InputWrapper>
 
       {error && <span className="error">{error}</span>}
     </Container>
