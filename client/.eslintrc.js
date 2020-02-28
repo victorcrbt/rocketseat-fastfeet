@@ -45,6 +45,7 @@ module.exports = {
     'arrow-body-style': 'off',
     'react/prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/button-has-type': 'off',
   },
   settings: {
     'import/parsers': {
