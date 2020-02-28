@@ -33,6 +33,7 @@ export const Container = styled.div<ContainerProps>`
     align-items: center;
     justify-content: center;
 
+    width: 100%;
     height: 40px;
 
     color: ${props => props.textColor || '#fff'};
