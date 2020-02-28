@@ -4,9 +4,9 @@ export default {
   },
 
   colors: {
-    success: '#dff0df',
-    error: '#fab0b0',
-    warn: '#f0f0df',
-    info: '#bad2ff',
+    success: '#52ad52',
+    error: '#f33f3f',
+    warn: '#e3e352',
+    info: '#669cff',
   },
 };
