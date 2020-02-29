@@ -24,7 +24,7 @@ export const Container = styled.div`
   .error {
     margin-left: 3px;
 
-    color: ${props => darken(0.2, props.theme.colors.error)};
+    color: ${props => props.theme.colors.error};
     font-weight: bold;
   }
 `;
