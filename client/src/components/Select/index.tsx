@@ -12,6 +12,10 @@ import { Container, Select as ReactSelect } from './styles';
 
 interface Props {
   name: string;
+  /**
+   * Async function that return a set of options to be rendered
+   * by the select component.
+   */
   loadOptions(inputValue: string): Promise<OptionTypeBase[]>;
   getOptionLabel?(options: OptionTypeBase): string;
   getOptionValue?(options: OptionTypeBase): string;
