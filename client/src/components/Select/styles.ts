@@ -7,6 +7,20 @@ export const Container = styled.div`
   flex-direction: column;
 
   margin: 5px;
+
+  label {
+    margin-left: 3px;
+
+    color: ${props => props.theme.colors.text};
+    font-weight: bold;
+  }
+
+  .error {
+    margin-left: 3px;
+
+    color: ${props => props.theme.colors.error};
+    font-weight: bold;
+  }
 `;
 
 export const Select = styled(ReactSelect)`

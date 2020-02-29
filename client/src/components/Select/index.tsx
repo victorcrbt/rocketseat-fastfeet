@@ -19,13 +19,19 @@ interface Props {
   loadOptions(inputValue: string): Promise<OptionTypeBase[]>;
   getOptionLabel?(options: OptionTypeBase): string;
   getOptionValue?(options: OptionTypeBase): string;
+  label: string;
 }
 
 type SelectProps = ReactSelectProps<any> &
   AsyncProps<any> &
   Props & { theme?: DefaultTheme };
 
-const Select: React.FC<SelectProps> = ({ loadOptions, name, ...rest }) => {
+const Select: React.FC<SelectProps> = ({
+  loadOptions,
+  label,
+  name,
+  ...rest
+}) => {
   const selectRef: any = useRef(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
 
@@ -53,7 +59,10 @@ const Select: React.FC<SelectProps> = ({ loadOptions, name, ...rest }) => {
 
   return (
     <Container>
+      {label && <label htmlFor={name}>{name}</label>}
+
       <ReactSelect
+        id={name}
         defaultValue={defaultValue}
         classNamePrefix="react-select"
         defaultOptions
@@ -61,6 +70,8 @@ const Select: React.FC<SelectProps> = ({ loadOptions, name, ...rest }) => {
         ref={selectRef}
         {...rest}
       />
+
+      {error && <span className="error">{error}</span>}
     </Container>
   );
 };
