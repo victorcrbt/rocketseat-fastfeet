@@ -47,6 +47,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/button-has-type': 'off',
     'no-param-reassign': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
   settings: {
     'import/parsers': {
