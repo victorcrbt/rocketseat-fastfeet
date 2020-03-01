@@ -1,5 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
+
+import { ApplicationState } from '~/store/index';
 
 import AuthLayout from '~/pages/_layout/auth';
 import DefaultLayout from '~/pages/_layout/default';
@@ -16,7 +19,7 @@ const RouteWrapper: React.FC<RouteWrapperProps> = ({
   isPrivate,
   ...rest
 }) => {
-  const signed = false;
+  const signed = useSelector<ApplicationState>(state => state.auth.isSigned);
 
   if (!signed && isPrivate) {
     return <Redirect to="/login" />;
