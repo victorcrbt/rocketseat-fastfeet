@@ -4,6 +4,7 @@ export enum AuthTypes {
   SIGNIN_REQUEST = '@auth/SIGNIN_REQUEST',
   SIGNIN_SUCCESS = '@auth/SIGNIN_SUCESS',
   SIGNIN_FAILURE = '@auth/SIGNIN_FAILURE',
+  SIGNOUT = '@auth/SIGNOUT',
 }
 
 export interface Auth {

@@ -19,6 +19,7 @@ export default function auth(
         break;
       }
 
+      case AuthTypes.SIGNOUT:
       case AuthTypes.SIGNIN_FAILURE: {
         draft.profile = null;
         break;
