@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import './config/Reactotron';
 
 import Routes from './routes';
 
 import history from './services/history';
-import store from './store';
+import { store, persistor } from './store';
 
 import usePersistTheme from './utils/usePersistTheme';
 
@@ -25,13 +26,15 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router history={history}>
-        <ThemeProvider theme={theme}>
-          <Routes />
+      <PersistGate persistor={persistor}>
+        <Router history={history}>
+          <ThemeProvider theme={theme}>
+            <Routes />
 
-          <GlobalStyles />
-        </ThemeProvider>
-      </Router>
+            <GlobalStyles />
+          </ThemeProvider>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 }
