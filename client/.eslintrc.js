@@ -57,6 +57,10 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'no-unused-expressions': 'off',
     'babel/no-unused-expressions': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/Reactotron.ts'] },
+    ],
   },
   settings: {
     'import/parsers': {
