@@ -19,6 +19,7 @@ const Input: React.FC<InputProps> = ({
   iconPosition = 'left',
   fillIcon = '#bbb',
   label,
+  className,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +35,7 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Container>
+    <Container className={className}>
       {label && <label htmlFor={fieldName}>{label}</label>}
 
       {/*

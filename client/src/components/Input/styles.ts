@@ -11,18 +11,19 @@ interface InputWrapperProps {
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   margin: 5px;
 
   label {
-    margin-left: 3px;
+    margin-bottom: 5px;
 
     color: ${props => props.theme.colors.text};
     font-weight: bold;
   }
 
   .error {
-    margin-left: 3px;
+    margin: 3px 0 0 3px;
 
     color: ${props => props.theme.colors.error};
     font-weight: bold;
@@ -39,7 +40,7 @@ export const InputWrapper = styled.div<InputWrapperProps>`
     ${props =>
       props.error
         ? darken(0.2, props.theme.colors.error)
-        : darken(0.3, props.theme.colors.highlight)};
+        : darken(0.2, props.theme.colors.highlight)};
   border-radius: 4px;
 
   ${props =>
