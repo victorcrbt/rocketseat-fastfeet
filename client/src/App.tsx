@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
+import { Router } from 'react-router-dom';
+
+import Routes from './routes';
+
+import history from './services/history';
 
 import usePersistTheme from './utils/usePersistTheme';
 
@@ -15,13 +20,13 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <h1>Hello, World!</h1>
+    <Router history={history}>
+      <ThemeProvider theme={theme}>
+        <Routes />
 
-      <button type="button" onClick={toggleTheme}>Trocar tema</button>
-
-      <GlobalStyles />
-    </ThemeProvider>
+        <GlobalStyles />
+      </ThemeProvider>
+    </Router>
   );
 }
 
