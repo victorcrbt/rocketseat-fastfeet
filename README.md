@@ -1,3 +1,11 @@
+<h1 align="center">
+  <img src="./assets/logo.png" />
+</h1>
+
+<div>
+  <img src="./assets/preview.gif" />
+</div>
+
 Projeto criado com o intuito de receber a certificação do bootcamp GoStack da [Rocketseat](https://github.com/rocketseat).
 
 A aplicação possui algumas diferenças do proposto no desafio:
