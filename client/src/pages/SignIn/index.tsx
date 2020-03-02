@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { FormHandles, SubmitHandler } from '@unform/core';
 
 import { signInRequest } from '~/store/modules/auth/actions';
+import { ApplicationState } from '~/store';
+
+import Loading from '~/components/Loading';
 
 import { Container, Logo, Form, Input, SubmitButton } from './styles';
 
@@ -16,7 +19,11 @@ const SignIn: React.FC = () => {
   const dispatch = useDispatch();
   const formRef = useRef<FormHandles>(null);
 
+  const [formError, setFormError] = useState(false);
+  const loading = useSelector<ApplicationState>(state => state.auth.loading);
+
   const handleSubmit: SubmitHandler<FormData> = async data => {
+    setFormError(false);
     formRef.current?.setErrors({});
 
     try {
@@ -36,13 +43,16 @@ const SignIn: React.FC = () => {
           validationErrors[err.path] = err.message;
         });
 
-        formRef.current?.setErrors(validationErrors);
+        setTimeout(() => {
+          formRef.current?.setErrors(validationErrors);
+          setFormError(true);
+        }, 100);
       }
     }
   };
 
   return (
-    <Container>
+    <Container error={formError}>
       <Logo />
 
       <Form onSubmit={handleSubmit} ref={formRef}>
@@ -59,7 +69,9 @@ const SignIn: React.FC = () => {
           placeholder="Digite sua senha..."
         />
 
-        <SubmitButton type="submit">Entrar no sistema</SubmitButton>
+        <SubmitButton type="submit">
+          {loading ? <Loading color="#fff" /> : 'Entrar no sistema'}
+        </SubmitButton>
       </Form>
     </Container>
   );
