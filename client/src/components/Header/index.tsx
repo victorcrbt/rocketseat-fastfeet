@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTheme } from 'styled-components';
 import { FaMoon } from 'react-icons/fa';
 
 import AppContext from '~/AppContext';
 import { ApplicationState } from '~/store';
+import { signOut } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/logo.png';
 
@@ -14,6 +15,8 @@ import Navbar from './Navbar';
 import { Container } from './styles';
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
+
   const { toggleTheme } = useContext(AppContext);
   const theme = useTheme();
 
@@ -43,7 +46,11 @@ const Header: React.FC = () => {
             <FaMoon size={14} />
           </div>
 
-          <button className="logout-btn" type="button">
+          <button
+            className="logout-btn"
+            type="button"
+            onClick={() => dispatch(signOut())}
+          >
             Sair do sistema
           </button>
         </div>
