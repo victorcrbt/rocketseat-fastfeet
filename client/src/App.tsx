@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import './config/Reactotron';
 
+import AppContext from './AppContext';
 import Routes from './routes';
 
 import history from './services/history';
@@ -28,11 +29,13 @@ function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <Router history={history}>
-          <ThemeProvider theme={theme}>
-            <Routes />
+          <AppContext.Provider value={{ toggleTheme }}>
+            <ThemeProvider theme={theme}>
+              <Routes />
 
-            <GlobalStyles />
-          </ThemeProvider>
+              <GlobalStyles />
+            </ThemeProvider>
+          </AppContext.Provider>
         </Router>
       </PersistGate>
     </Provider>
