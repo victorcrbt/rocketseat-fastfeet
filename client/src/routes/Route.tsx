@@ -26,7 +26,7 @@ const RouteWrapper: React.FC<RouteWrapperProps> = ({
   }
 
   if (signed && !isPrivate) {
-    return <Redirect to="/" />;
+    return <Redirect to="/encomendas" />;
   }
 
   const Layout: React.FC = signed ? DefaultLayout : AuthLayout;
