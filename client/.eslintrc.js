@@ -22,7 +22,14 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'import', 'jsx-a11y', 'react-hooks'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'import',
+    'jsx-a11y',
+    'react-hooks',
+    'babel',
+  ],
   rules: {
     'import/extensions': [
       'error',
@@ -48,6 +55,12 @@ module.exports = {
     'react/button-has-type': 'off',
     'no-param-reassign': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'no-unused-expressions': 'off',
+    'babel/no-unused-expressions': 'error',
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/Reactotron.ts'] },
+    ],
   },
   settings: {
     'import/parsers': {

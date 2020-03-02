@@ -15,6 +15,7 @@ export const Container = styled.div<ContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   margin: 5px;
 
   background: ${props =>
