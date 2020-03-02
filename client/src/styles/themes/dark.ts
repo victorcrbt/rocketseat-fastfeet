@@ -13,8 +13,8 @@ const dark: DefaultTheme = {
     primary: '#7D40E7',
     secondary: '#21B53D',
 
-    background: '#444',
-    highlight: '#222',
+    background: '#222',
+    highlight: '#111',
     text: '#eee',
   },
 };
