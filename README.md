@@ -2,7 +2,7 @@
   <img src="./assets/logo.png" />
 </h1>
 
-<div>
+<div align="center">
   <img src="./assets/preview.gif" />
 </div>
 
