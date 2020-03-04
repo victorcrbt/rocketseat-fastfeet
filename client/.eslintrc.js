@@ -61,6 +61,7 @@ module.exports = {
       'error',
       { devDependencies: ['**/Reactotron.ts'] },
     ],
+    'react/jsx-one-expression-per-line': 'off',
   },
   settings: {
     'import/parsers': {
