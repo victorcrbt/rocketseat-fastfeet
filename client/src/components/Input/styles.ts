@@ -8,6 +8,10 @@ interface InputWrapperProps {
   fillIcon: string;
 }
 
+interface InputProps {
+  inputHeight?: string;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,7 +37,7 @@ export const Container = styled.div`
 export const InputWrapper = styled.div<InputWrapperProps>`
   display: flex;
   align-items: center;
-  height: 40px;
+  height: 100%;
 
   background: ${props => props.theme.colors.highlight};
   border: 1px solid
@@ -73,9 +77,9 @@ export const InputWrapper = styled.div<InputWrapperProps>`
   }
 `;
 
-export const TextInput = styled.input`
+export const TextInput = styled.input<InputProps>`
   flex: 1;
-  height: 40px;
+  min-height: ${props => props.inputHeight || '40px'};
   padding: 0 10px;
 
   color: ${props => props.theme.colors.text};

@@ -9,6 +9,7 @@ interface Props {
   iconPosition?: 'left' | 'right';
   fillIcon?: string;
   label?: string;
+  inputHeight?: string;
 }
 
 type InputProps = JSX.IntrinsicElements['input'] & Props;
@@ -20,6 +21,7 @@ const Input: React.FC<InputProps> = ({
   fillIcon = '#bbb',
   label,
   className,
+  inputHeight,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -52,6 +54,7 @@ const Input: React.FC<InputProps> = ({
       >
         <div className="icon left">{icon}</div>
         <TextInput
+          inputHeight={inputHeight}
           ref={inputRef}
           defaultValue={defaultValue}
           id={fieldName}
