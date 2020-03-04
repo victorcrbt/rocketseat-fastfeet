@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
