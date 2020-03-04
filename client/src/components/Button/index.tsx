@@ -51,17 +51,17 @@ const Button: React.FC<ButtonProps> = ({
       fillIcon={fillIcon}
       icon={!!icon}
     >
-      {icon && iconPosition === 'left' && (
-        <div className="icon left">{icon}</div>
-      )}
-
       <button type={type} {...rest}>
-        {children}
-      </button>
+        {icon && iconPosition === 'left' && (
+          <div className="icon left">{icon}</div>
+        )}
 
-      {icon && iconPosition === 'right' && (
-        <div className="icon right">{icon}</div>
-      )}
+        {children}
+
+        {icon && iconPosition === 'right' && (
+          <div className="icon right">{icon}</div>
+        )}
+      </button>
     </Container>
   );
 };
